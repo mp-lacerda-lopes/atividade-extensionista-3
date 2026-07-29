@@ -1,0 +1,1068 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Questionário educativo sobre segurança digital e uso consciente da inteligência artificial." />
+  <title>Qual é o seu nível de proteção digital?</title>
+
+  <style>
+    :root{
+      --ink:#101418;
+      --muted:#66717d;
+      --paper:#f3f0e9;
+      --white:#ffffff;
+      --lime:#c7ff46;
+      --lime-dark:#86b800;
+      --orange:#ff6b35;
+      --red:#e53e3e;
+      --blue:#2f6bff;
+      --cyan:#25c7d9;
+      --yellow:#ffd166;
+      --line:#d9dde1;
+      --shadow:0 18px 55px rgba(17,24,39,.13);
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      color:var(--ink);
+      background:
+        radial-gradient(circle at top left, rgba(199,255,70,.20), transparent 32rem),
+        radial-gradient(circle at bottom right, rgba(47,107,255,.15), transparent 34rem),
+        #dfe3e8;
+      font-family:Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      line-height:1.45;
+    }
+
+    button,input{font:inherit}
+    button{cursor:pointer}
+
+    .topbar{
+      position:sticky;
+      top:0;
+      z-index:40;
+      background:rgba(16,20,24,.94);
+      backdrop-filter:blur(12px);
+      color:#fff;
+      border-bottom:1px solid rgba(255,255,255,.08);
+    }
+
+    .topbar-inner{
+      width:min(1120px, calc(100% - 30px));
+      margin:auto;
+      min-height:66px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:18px;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:11px;
+      font-weight:950;
+      letter-spacing:-.02em;
+    }
+
+    .brand-mark{
+      width:34px;
+      height:34px;
+      display:grid;
+      place-items:center;
+      border-radius:11px;
+      background:var(--lime);
+      color:var(--ink);
+      font-size:18px;
+    }
+
+    .progress-shell{
+      width:min(320px, 42vw);
+      height:10px;
+      border-radius:999px;
+      background:rgba(255,255,255,.16);
+      overflow:hidden;
+    }
+
+    .progress-bar{
+      width:0%;
+      height:100%;
+      background:var(--lime);
+      transition:width .25s ease;
+    }
+
+    .page{
+      width:min(1120px, calc(100% - 30px));
+      margin:34px auto 70px;
+      display:grid;
+      gap:22px;
+    }
+
+    .hero{
+      position:relative;
+      overflow:hidden;
+      padding:44px;
+      border-radius:34px;
+      background:var(--paper);
+      box-shadow:var(--shadow);
+      isolation:isolate;
+    }
+
+    .hero::before{
+      content:"";
+      position:absolute;
+      width:340px;
+      height:340px;
+      right:-110px;
+      top:-120px;
+      border-radius:50%;
+      background:var(--lime);
+      opacity:.8;
+      z-index:-1;
+    }
+
+    .hero::after{
+      content:"";
+      position:absolute;
+      width:190px;
+      height:190px;
+      right:120px;
+      bottom:-120px;
+      border-radius:50%;
+      background:var(--blue);
+      opacity:.13;
+      z-index:-1;
+    }
+
+    .eyebrow{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      margin-bottom:14px;
+      font-size:12px;
+      font-weight:950;
+      text-transform:uppercase;
+      letter-spacing:.16em;
+    }
+
+    .eyebrow::before{
+      content:"";
+      width:34px;
+      height:6px;
+      border-radius:99px;
+      background:var(--lime);
+    }
+
+    h1,h2,h3,p{margin-top:0}
+    h1{
+      max-width:760px;
+      margin-bottom:18px;
+      font-size:clamp(40px, 7vw, 72px);
+      line-height:.94;
+      letter-spacing:-.06em;
+      font-weight:950;
+    }
+
+    h2{
+      margin-bottom:12px;
+      font-size:clamp(28px, 4vw, 42px);
+      line-height:1;
+      letter-spacing:-.045em;
+      font-weight:950;
+    }
+
+    h3{
+      margin-bottom:7px;
+      font-size:20px;
+      line-height:1.1;
+      font-weight:900;
+    }
+
+    .lead{
+      max-width:780px;
+      font-size:20px;
+      color:#2b333b;
+    }
+
+    .accent{
+      background:linear-gradient(transparent 58%, var(--lime) 58%);
+    }
+
+    .hero-meta{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-top:24px;
+    }
+
+    .badge{
+      display:inline-flex;
+      align-items:center;
+      border-radius:999px;
+      padding:8px 12px;
+      font-size:12px;
+      font-weight:900;
+      background:var(--ink);
+      color:#fff;
+    }
+
+    .badge.lime{
+      background:var(--lime);
+      color:var(--ink);
+    }
+
+    .card{
+      padding:28px;
+      border:1.5px solid var(--line);
+      border-radius:26px;
+      background:rgba(243,240,233,.97);
+      box-shadow:var(--shadow);
+    }
+
+    .intro-grid{
+      display:grid;
+      grid-template-columns:1.15fr .85fr;
+      gap:20px;
+    }
+
+    .privacy{
+      background:var(--ink);
+      color:#fff;
+      border-color:var(--ink);
+    }
+
+    .privacy strong{color:var(--lime)}
+
+    .form-card{
+      display:none;
+    }
+
+    .form-card.active{
+      display:block;
+      animation:rise .28s ease;
+    }
+
+    @keyframes rise{
+      from{opacity:0;transform:translateY(8px)}
+      to{opacity:1;transform:none}
+    }
+
+    .topic-tag{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      margin-bottom:13px;
+      padding:7px 11px;
+      border-radius:999px;
+      background:var(--ink);
+      color:var(--lime);
+      font-size:11px;
+      font-weight:950;
+      text-transform:uppercase;
+      letter-spacing:.09em;
+    }
+
+    .topic-intro{
+      display:none;
+      position:relative;
+      overflow:hidden;
+      min-height:430px;
+      align-content:center;
+      background:var(--ink);
+      color:#fff;
+      isolation:isolate;
+    }
+
+    .topic-intro.active{
+      display:grid;
+      animation:rise .28s ease;
+    }
+
+    .topic-intro::after{
+      content:"";
+      position:absolute;
+      width:270px;
+      height:270px;
+      right:-70px;
+      bottom:-100px;
+      border-radius:50%;
+      background:var(--lime);
+      opacity:.88;
+      z-index:-1;
+    }
+
+    .topic-intro .topic-count{
+      display:inline-flex;
+      width:max-content;
+      margin-bottom:16px;
+      padding:8px 12px;
+      border-radius:999px;
+      background:var(--lime);
+      color:var(--ink);
+      font-size:12px;
+      font-weight:950;
+      text-transform:uppercase;
+      letter-spacing:.08em;
+    }
+
+    .topic-intro h2{
+      max-width:720px;
+      color:#fff;
+      font-size:clamp(38px,6vw,66px);
+    }
+
+    .topic-intro p{
+      max-width:740px;
+      font-size:19px;
+      color:#d7dde2;
+    }
+
+    .topic-intro .navigation{
+      justify-content:flex-end;
+    }
+
+    .question-head{
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-start;
+      gap:18px;
+      margin-bottom:20px;
+    }
+
+    .question-number{
+      flex:0 0 auto;
+      min-width:64px;
+      padding:8px 11px;
+      border-radius:999px;
+      text-align:center;
+      font-size:12px;
+      font-weight:950;
+      background:var(--ink);
+      color:var(--lime);
+    }
+
+    .question-text{
+      font-size:clamp(24px, 4vw, 38px);
+      line-height:1.04;
+      letter-spacing:-.04em;
+      font-weight:950;
+    }
+
+    .question-help{
+      margin-top:8px;
+      color:var(--muted);
+      font-size:15px;
+    }
+
+    .options{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:14px;
+      margin-top:20px;
+    }
+
+    .option{
+      position:relative;
+    }
+
+    .option input{
+      position:absolute;
+      opacity:0;
+      pointer-events:none;
+    }
+
+    .option label{
+      min-height:88px;
+      display:flex;
+      align-items:center;
+      gap:14px;
+      padding:18px;
+      border:2px solid var(--line);
+      border-radius:22px;
+      background:#fff;
+      font-size:18px;
+      font-weight:900;
+      transition:.18s ease;
+      user-select:none;
+    }
+
+    .option label:hover{
+      border-color:#9ea8b2;
+      transform:translateY(-2px);
+    }
+
+    .option input:checked + label{
+      border-color:var(--ink);
+      background:var(--lime);
+      box-shadow:0 10px 28px rgba(134,184,0,.18);
+    }
+
+    .option-icon{
+      width:48px;
+      height:48px;
+      display:grid;
+      place-items:center;
+      border-radius:14px;
+      background:var(--ink);
+      color:#fff;
+      font-size:22px;
+      flex:0 0 auto;
+    }
+
+    .option input:checked + label .option-icon{
+      background:#fff;
+      color:var(--ink);
+    }
+
+    .navigation{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:14px;
+      margin-top:24px;
+    }
+
+    .btn{
+      border:1px solid var(--ink);
+      border-radius:999px;
+      padding:13px 20px;
+      font-weight:950;
+      background:var(--ink);
+      color:#fff;
+    }
+
+    .btn.primary{
+      background:var(--lime);
+      color:var(--ink);
+      border-color:#93c82c;
+    }
+
+    .btn.secondary{
+      background:transparent;
+      color:var(--ink);
+    }
+
+    .btn:disabled{
+      cursor:not-allowed;
+      opacity:.45;
+    }
+
+    .consent{
+      display:flex;
+      gap:12px;
+      align-items:flex-start;
+      margin-top:18px;
+      padding:14px;
+      border-radius:18px;
+      background:#fff;
+      border:1px solid var(--line);
+    }
+
+    .consent input{
+      width:20px;
+      height:20px;
+      margin-top:2px;
+      accent-color:var(--lime-dark);
+      flex:0 0 auto;
+    }
+
+    .result{
+      display:none;
+      overflow:hidden;
+    }
+
+    .result.active{
+      display:block;
+      animation:rise .35s ease;
+    }
+
+    .result-top{
+      display:grid;
+      grid-template-columns:.8fr 1.2fr;
+      gap:24px;
+      align-items:center;
+    }
+
+    .score-ring{
+      width:250px;
+      height:250px;
+      margin:auto;
+      display:grid;
+      place-items:center;
+      border-radius:50%;
+      background:conic-gradient(var(--lime) 0deg, #d7dce0 0deg);
+      position:relative;
+    }
+
+    .score-ring::after{
+      content:"";
+      position:absolute;
+      width:188px;
+      height:188px;
+      border-radius:50%;
+      background:var(--paper);
+    }
+
+    .score-inner{
+      position:relative;
+      z-index:2;
+      text-align:center;
+    }
+
+    .score-value{
+      display:block;
+      font-size:58px;
+      line-height:.9;
+      font-weight:950;
+      letter-spacing:-.06em;
+    }
+
+    .score-label{
+      font-size:12px;
+      text-transform:uppercase;
+      letter-spacing:.12em;
+      font-weight:900;
+      color:var(--muted);
+    }
+
+    .level-chip{
+      display:inline-flex;
+      padding:8px 13px;
+      border-radius:999px;
+      font-size:12px;
+      font-weight:950;
+      text-transform:uppercase;
+      letter-spacing:.08em;
+      background:var(--ink);
+      color:var(--lime);
+      margin-bottom:12px;
+    }
+
+    .recommendations{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:14px;
+      margin-top:24px;
+    }
+
+    .recommendation{
+      padding:17px;
+      border-radius:19px;
+      background:#fff;
+      border:1px solid var(--line);
+    }
+
+    .recommendation.good{
+      border-left:7px solid var(--lime-dark);
+    }
+
+    .recommendation.attention{
+      border-left:7px solid var(--orange);
+    }
+
+    .status{
+      display:none;
+      margin-top:16px;
+      padding:13px 15px;
+      border-radius:16px;
+      font-weight:800;
+    }
+
+    .status.show{display:block}
+    .status.ok{background:#e9f8d0;color:#365600}
+    .status.warn{background:#fff0e9;color:#7a2d0a}
+    .status.error{background:#ffe7e7;color:#8c1919}
+
+    .disclaimer{
+      margin-top:18px;
+      color:var(--muted);
+      font-size:13px;
+    }
+
+    .footer{
+      padding:22px 8px;
+      text-align:center;
+      color:#56616c;
+      font-size:13px;
+    }
+
+
+    .profile-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:18px}
+    .field{display:grid;gap:7px}.field.full{grid-column:1/-1}
+    .field label{font-size:13px;font-weight:900;text-transform:uppercase;letter-spacing:.06em}
+    .field input,.field select{width:100%;padding:14px 15px;border:2px solid var(--line);border-radius:16px;background:#fff;color:var(--ink);outline:none}
+    .field input:focus,.field select:focus{border-color:var(--ink);box-shadow:0 0 0 4px rgba(199,255,70,.35)}
+    .education{display:none;gap:18px}.education.active{display:grid;grid-template-columns:1fr 1fr}
+    .topic-card{padding:26px;border-radius:26px;background:var(--paper);border:1.5px solid var(--line);box-shadow:var(--shadow)}
+    .topic-card.dark{background:var(--ink);color:#fff;border-color:var(--ink)}
+    .topic-card.dark .eyebrow::before{background:var(--orange)}.topic-card.dark strong{color:var(--lime)}
+    .topic-list{display:grid;gap:12px;margin-top:18px}.topic-item{display:grid;grid-template-columns:42px 1fr;gap:12px;align-items:start;padding:14px;border-radius:17px;background:#fff;color:var(--ink);border:1px solid var(--line)}
+    .topic-icon{width:42px;height:42px;display:grid;place-items:center;border-radius:13px;background:var(--lime);font-size:21px}
+
+    .hidden{display:none!important}
+
+    @media(max-width:760px){
+      .topbar-inner{min-height:58px}
+      .brand span:last-child{display:none}
+      .progress-shell{width:38vw}
+      .page{margin-top:18px}
+      .hero,.card{padding:23px;border-radius:24px}
+      .intro-grid,.result-top,.recommendations,.education.active,.profile-grid{grid-template-columns:1fr}
+      .options{grid-template-columns:1fr}
+      .option label{min-height:76px}
+      .question-head{display:block}
+      .question-number{display:inline-block;margin-bottom:12px}
+      .navigation{align-items:stretch}
+      .btn{flex:1}
+      .score-ring{width:220px;height:220px}
+      .score-ring::after{width:165px;height:165px}
+    }
+  </style>
+</head>
+
+<body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">
+        <div class="brand-mark">✓</div>
+        <span>Proteção Digital</span>
+      </div>
+      <div class="progress-shell" aria-label="Progresso do questionário">
+        <div class="progress-bar" id="progressBar"></div>
+      </div>
+    </div>
+  </header>
+
+  <main class="page">
+    <section class="hero" id="hero">
+      <div class="eyebrow">Segurança digital e uso consciente da IA</div>
+      <h1>Qual é o seu nível de <span class="accent">proteção digital?</span></h1>
+      <p class="lead">
+        Responda a 15 perguntas rápidas sobre seus hábitos. Ao final, você receberá
+        uma pontuação, recomendações personalizadas e orientações práticas.
+      </p>
+      <div class="hero-meta">
+        <span class="badge lime">✓ Aproximadamente 3 minutos</span>
+        <span class="badge">Uso acadêmico</span>
+        <span class="badge">Resultado imediato</span>
+      </div>
+    </section>
+
+    <section class="intro-grid" id="intro">
+      <div class="card">
+        <div class="eyebrow">Antes de começar</div>
+        <h2>Conte um pouco sobre você.</h2>
+        <p>Essas informações ajudam a compreender o perfil geral dos participantes. O primeiro nome é opcional.</p>
+        <div class="profile-grid">
+          <div class="field full"><label for="firstName">Primeiro nome (opcional)</label><input id="firstName" maxlength="40" autocomplete="given-name" placeholder="Ex.: Marcos"></div>
+          <div class="field"><label for="ageGroup">Faixa etária</label><select id="ageGroup"><option value="">Selecione</option><option>Até 18 anos</option><option>19 a 30 anos</option><option>31 a 45 anos</option><option>46 a 60 anos</option><option>Acima de 60 anos</option></select></div>
+          <div class="field"><label for="trainingTime">Tempo de atividade física</label><select id="trainingTime"><option value="">Selecione</option><option>Menos de 6 meses</option><option>6 meses a 1 ano</option><option>1 a 3 anos</option><option>Mais de 3 anos</option></select></div>
+          <div class="field full"><label for="aiUse">Frequência de uso de IA</label><select id="aiUse"><option value="">Selecione</option><option>Nunca usei</option><option>Uso raramente</option><option>Uso algumas vezes por semana</option><option>Uso quase todos os dias</option></select></div>
+        </div>
+        <label class="consent"><input type="checkbox" id="consentCheck"><span>Concordo em participar voluntariamente e autorizo o uso das respostas para fins acadêmicos e estatísticos. Sei que posso deixar o nome em branco.</span></label>
+        <div class="navigation"><span></span><button class="btn primary" id="startButton" disabled>Começar pesquisa →</button></div>
+      </div>
+      <aside class="card privacy"><div class="eyebrow">Privacidade</div><h3>O nome é opcional.</h3><p>Não solicitamos sobrenome, e-mail, telefone, CPF ou diagnóstico. Para uma coleta mais anônima, deixe o primeiro nome em branco.</p><p><strong>A pontuação é educativa e não representa diagnóstico ou certificação.</strong></p></aside>
+    </section>
+
+    <section class="card topic-intro" id="topicIntroCard">
+      <div class="topic-count" id="topicIntroCount">Bloco 1 de 2</div>
+      <div class="eyebrow" id="topicIntroEyebrow">Tema das próximas questões</div>
+      <h2 id="topicIntroTitle">Proteção digital e prevenção contra golpes</h2>
+      <p id="topicIntroText"></p>
+      <div class="navigation">
+        <button type="button" class="btn primary" id="topicIntroButton">Iniciar este bloco →</button>
+      </div>
+    </section>
+
+    <form id="quizForm" novalidate>
+      <div id="questionsContainer"></div>
+    </form>
+
+    <section class="card result" id="resultCard">
+      <div class="result-top">
+        <div class="score-ring" id="scoreRing">
+          <div class="score-inner">
+            <span class="score-value" id="scoreValue">0%</span>
+            <span class="score-label">proteção digital</span>
+          </div>
+        </div>
+
+        <div>
+          <span class="level-chip" id="levelChip">Resultado</span>
+          <h2 id="resultTitle">Seu resultado</h2>
+          <p class="lead" id="resultText"></p>
+          <button class="btn primary" id="restartButton" type="button">Refazer avaliação</button>
+        </div>
+      </div>
+
+      <div class="recommendations" id="recommendations"></div>
+      <div class="status" id="saveStatus"></div>
+
+      <p class="disclaimer">
+        Este índice foi criado exclusivamente para a atividade extensionista e tem finalidade
+        educativa. Ele não representa uma certificação de segurança nem uma avaliação clínica.
+      </p>
+    </section>
+
+
+    <section class="education" id="educationSection">
+      <article class="topic-card dark">
+        <div class="eyebrow">Golpes digitais</div><h2>Como reduzir o risco de cair em golpes</h2>
+        <p>Golpistas exploram urgência, medo, confiança e distração. Antes de agir, interrompa o impulso e confirme a informação.</p>
+        <div class="topic-list">
+          <div class="topic-item"><div class="topic-icon">📱</div><div><strong>Pedidos por mensagem:</strong> confirme por ligação ou pessoalmente antes de enviar dinheiro.</div></div>
+          <div class="topic-item"><div class="topic-icon">🔗</div><div><strong>Links:</strong> abra bancos e serviços pelo aplicativo oficial, não pelo link recebido.</div></div>
+          <div class="topic-item"><div class="topic-icon">🔐</div><div><strong>Contas:</strong> use senhas diferentes e ative autenticação em dois fatores.</div></div>
+          <div class="topic-item"><div class="topic-icon">🎙️</div><div><strong>Áudios e vídeos:</strong> voz e imagem podem ser clonadas; faça uma pergunta de confirmação.</div></div>
+          <div class="topic-item"><div class="topic-icon">⏸️</div><div><strong>Urgência:</strong> pare por 30 segundos, releia e confirme antes de clicar ou pagar.</div></div>
+        </div>
+      </article>
+      <article class="topic-card">
+        <div class="eyebrow">IA e profissionais</div><h2>Por que a IA não deve substituir um profissional</h2>
+        <p>A IA pode explicar conceitos e organizar dúvidas, mas não realiza avaliação física, clínica ou nutricional completa.</p>
+        <div class="topic-list">
+          <div class="topic-item"><div class="topic-icon">🏋️</div><div><strong>Treinos:</strong> pode ignorar técnica, lesões, limitações e progressão adequada.</div></div>
+          <div class="topic-item"><div class="topic-icon">🥗</div><div><strong>Dietas:</strong> necessidades dependem de rotina, objetivos, exames e condições individuais.</div></div>
+          <div class="topic-item"><div class="topic-icon">🩺</div><div><strong>Sintomas:</strong> uma resposta automática pode atrasar atendimento necessário.</div></div>
+          <div class="topic-item"><div class="topic-icon">✅</div><div><strong>Uso responsável:</strong> use a IA como apoio e confirme decisões importantes com profissionais qualificados.</div></div>
+        </div>
+      </article>
+    </section>
+
+    <footer class="footer">
+      Atividade Extensionista — Análise e Desenvolvimento de Sistemas — Gran Faculdade • 2026
+    </footer>
+  </main>
+
+  <script>
+    /*
+      CONFIGURAÇÃO:
+      Depois de publicar o Google Apps Script, cole a URL abaixo.
+      Exemplo:
+      const APPS_SCRIPT_URL = "https://script.google.com/macros/s/1cl48vprNB1yJA05tMqQ5GNnwJzOn-m1RSXVOBQQ3hS71ZcrocDMQd1sV/exec";
+    */
+    const APPS_SCRIPT_URL = "https://script.google.com/macros/s/1cl48vprNB1yJA05tMqQ5GNnwJzOn-m1RSXVOBQQ3hS71ZcrocDMQd1sV/exec";
+
+    const questions = [
+      {topic:"Segurança digital",id:"two_factor",text:"Você utiliza autenticação em dois fatores (2FA) nas suas contas mais importantes?",help:"Exemplos: aplicativo autenticador, código adicional ou confirmação no celular.",yesSafe:true,good:"Você usa uma camada adicional de proteção.",improve:"Ative a autenticação em dois fatores, principalmente em e-mail, banco e redes sociais."},
+      {topic:"Segurança digital",id:"unique_passwords",text:"Você utiliza senhas diferentes para serviços importantes?",help:"Reutilizar a mesma senha aumenta o impacto de um vazamento.",yesSafe:true,good:"Você reduz o risco de uma senha comprometida afetar várias contas.",improve:"Evite reutilizar senhas e considere um gerenciador de senhas confiável."},
+      {topic:"Segurança digital",id:"password_manager",text:"Você utiliza um gerenciador de senhas ou outro método seguro para organizá-las?",help:"Senhas fáceis e anotações expostas aumentam o risco.",yesSafe:true,good:"Você organiza credenciais de forma mais segura.",improve:"Considere usar um gerenciador de senhas protegido por uma senha principal forte."},
+      {topic:"Golpes e pagamentos",id:"confirm_pix",text:"Você confirma pedidos de Pix por ligação ou outro canal antes de pagar?",help:"Mensagens, áudios e perfis podem ser falsificados.",yesSafe:true,good:"Você confirma a identidade antes de pagar.",improve:"Confirme pedidos de dinheiro por outro canal, mesmo quando pareçam legítimos."},
+      {topic:"Golpes e links",id:"click_links",text:"Você costuma clicar em links recebidos sem verificar o endereço ou o remetente?",help:"Links falsos podem capturar senhas e dados pessoais.",yesSafe:false,good:"Você evita clicar impulsivamente em links suspeitos.",improve:"Confira domínio e remetente e prefira o aplicativo oficial."},
+      {topic:"Proteção de contas",id:"share_codes",text:"Você já compartilhou códigos de verificação recebidos por SMS ou aplicativo?",help:"Empresas legítimas normalmente não pedem esses códigos por mensagem.",yesSafe:false,good:"Você protege códigos que liberam acesso às contas.",improve:"Nunca compartilhe códigos de verificação, nem com supostos atendentes."},
+      {topic:"Conexões seguras",id:"public_wifi",text:"Você evita acessar banco ou enviar dados sensíveis em redes Wi-Fi públicas?",help:"Redes abertas podem aumentar a exposição das informações.",yesSafe:true,good:"Você evita operações sensíveis em redes desconhecidas.",improve:"Prefira sua rede móvel para banco e dados sensíveis."},
+      {topic:"Atualizações",id:"device_updates",text:"Você mantém o celular e os aplicativos atualizados?",help:"Atualizações corrigem falhas de segurança conhecidas.",yesSafe:true,good:"Você reduz a exposição a falhas já corrigidas.",improve:"Ative atualizações automáticas do sistema e dos aplicativos."},
+      {topic:"Desinformação e deepfake",id:"verify_media",text:"Você verifica notícias, imagens ou áudios antes de compartilhar?",help:"Deepfakes e conteúdos fora de contexto podem parecer verdadeiros.",yesSafe:true,good:"Você reduz a circulação de desinformação.",improve:"Pesquise origem, data e outras fontes antes de compartilhar."},
+      {topic:"Proteção de arquivos",id:"backup",text:"Você mantém cópia de segurança de fotos e arquivos importantes?",help:"Backups ajudam em casos de perda, roubo ou falha do aparelho.",yesSafe:true,good:"Você reduz o risco de perder seus arquivos.",improve:"Ative backup automático e verifique se ele está funcionando."},
+      {topic:"IA e atividade física",id:"ai_training",text:"Você já executou um treino montado por IA sem consultar um profissional?",help:"A IA pode desconhecer limitações, lesões, técnica e histórico individual.",yesSafe:false,good:"Você não substitui acompanhamento profissional por resposta automática.",improve:"Valide treinos com um profissional de Educação Física."},
+      {topic:"IA e alimentação",id:"ai_diet",text:"Você já seguiu uma dieta criada por IA sem consultar um nutricionista?",help:"Planos alimentares exigem avaliação individual.",yesSafe:false,good:"Você reconhece que alimentação precisa de orientação individualizada.",improve:"Não siga dietas personalizadas por IA sem avaliação nutricional."},
+      {topic:"IA e saúde",id:"ai_symptoms",text:"Você já descreveu sintomas para uma IA e deixou de procurar ajuda profissional?",help:"Respostas automáticas podem ser incompletas ou inadequadas.",yesSafe:false,good:"Você não deixa a IA substituir atendimento quando necessário.",improve:"Sintomas persistentes, intensos ou urgentes exigem atendimento."},
+      {topic:"Confiabilidade da IA",id:"verify_ai",text:"Você costuma confirmar informações importantes fornecidas por IA em fontes confiáveis?",help:"A IA pode apresentar erros com aparência convincente.",yesSafe:true,good:"Você verifica informações antes de decidir.",improve:"Confirme respostas importantes em fontes oficiais ou com profissionais."},
+      {topic:"Privacidade na IA",id:"personal_data_ai",text:"Você evita informar dados pessoais, documentos ou informações sensíveis em ferramentas de IA?",help:"Dados inseridos em serviços digitais podem ser armazenados ou processados.",yesSafe:true,good:"Você limita a exposição de informações pessoais.",improve:"Não informe CPF, senhas, documentos ou exames identificados em ferramentas de IA."}
+    ];
+    let currentQuestion = 0;
+    const answers = {};
+    let participant = {};
+
+    const consentCheck = document.getElementById("consentCheck");
+    const startButton = document.getElementById("startButton");
+    const intro = document.getElementById("intro");
+    const hero = document.getElementById("hero");
+    const form = document.getElementById("quizForm");
+    const container = document.getElementById("questionsContainer");
+    const progressBar = document.getElementById("progressBar");
+    const resultCard = document.getElementById("resultCard");
+    const saveStatus = document.getElementById("saveStatus");
+    const educationSection = document.getElementById("educationSection");
+    const topicIntroCard = document.getElementById("topicIntroCard");
+    const topicIntroCount = document.getElementById("topicIntroCount");
+    const topicIntroTitle = document.getElementById("topicIntroTitle");
+    const topicIntroText = document.getElementById("topicIntroText");
+    const topicIntroButton = document.getElementById("topicIntroButton");
+    let pendingQuestionIndex = 0;
+
+    const topicBlocks = {
+      security: {
+        count:"Bloco 1 de 2",
+        title:"Proteção digital e prevenção contra golpes",
+        text:"Nas próximas 10 questões, você avaliará hábitos relacionados a senhas, autenticação, Pix, links suspeitos, redes públicas, deepfakes, atualizações e proteção de arquivos.",
+        button:"Iniciar segurança digital →"
+      },
+      ai: {
+        count:"Bloco 2 de 2",
+        title:"Uso consciente da Inteligência Artificial",
+        text:"Agora o foco muda para o uso da IA em treinos, alimentação e saúde, além da verificação de respostas e da proteção de dados pessoais.",
+        button:"Iniciar questões sobre IA →"
+      }
+    };
+
+    function renderQuestions(){
+      container.innerHTML = questions.map((q, index) => `
+        <section class="card form-card" data-index="${index}">
+          <div class="question-head">
+            <div>
+              <div class="question-number">${String(index + 1).padStart(2,"0")} / ${questions.length}</div>
+              <div class="topic-tag">${q.topic}</div>
+              <div class="question-text">${q.text}</div>
+              <div class="question-help">${q.help}</div>
+            </div>
+          </div>
+
+          <div class="options">
+            <div class="option">
+              <input type="radio" id="${q.id}_yes" name="${q.id}" value="Sim">
+              <label for="${q.id}_yes">
+                <span class="option-icon">✓</span>
+                <span>Sim</span>
+              </label>
+            </div>
+            <div class="option">
+              <input type="radio" id="${q.id}_no" name="${q.id}" value="Não">
+              <label for="${q.id}_no">
+                <span class="option-icon">×</span>
+                <span>Não</span>
+              </label>
+            </div>
+          </div>
+
+          <div class="navigation">
+            <button type="button" class="btn secondary previous" ${index === 0 ? "disabled" : ""}>← Voltar</button>
+            <button type="button" class="btn primary next" disabled>
+              ${index === questions.length - 1 ? "Ver meu resultado" : "Próxima →"}
+            </button>
+          </div>
+        </section>
+      `).join("");
+
+      container.querySelectorAll(".form-card").forEach((card, index) => {
+        const next = card.querySelector(".next");
+        const previous = card.querySelector(".previous");
+        const radios = card.querySelectorAll('input[type="radio"]');
+
+        radios.forEach(radio => {
+          radio.addEventListener("change", () => {
+            answers[questions[index].id] = radio.value;
+            next.disabled = false;
+          });
+        });
+
+        next.addEventListener("click", () => {
+          if(index === questions.length - 1){
+            finishQuiz();
+          }else if(index === 9){
+            showTopicIntro("ai", 10);
+          }else{
+            showQuestion(index + 1);
+          }
+        });
+
+        previous.addEventListener("click", () => showQuestion(index - 1));
+      });
+    }
+
+    function showTopicIntro(blockKey, nextIndex){
+      pendingQuestionIndex = nextIndex;
+      const block = topicBlocks[blockKey];
+      form.classList.add("hidden");
+      topicIntroCount.textContent = block.count;
+      topicIntroTitle.textContent = block.title;
+      topicIntroText.textContent = block.text;
+      topicIntroButton.textContent = block.button;
+      topicIntroCard.classList.add("active");
+      progressBar.style.width = `${(nextIndex / questions.length) * 100}%`;
+      topicIntroCard.scrollIntoView({behavior:"smooth", block:"center"});
+    }
+
+    topicIntroButton.addEventListener("click", () => {
+      topicIntroCard.classList.remove("active");
+      form.classList.remove("hidden");
+      showQuestion(pendingQuestionIndex);
+    });
+
+    function showQuestion(index){
+      currentQuestion = index;
+      container.querySelectorAll(".form-card").forEach(card => card.classList.remove("active"));
+      const active = container.querySelector(`[data-index="${index}"]`);
+      active.classList.add("active");
+
+      const saved = answers[questions[index].id];
+      if(saved){
+        const radio = active.querySelector(`input[value="${saved}"]`);
+        if(radio) radio.checked = true;
+        active.querySelector(".next").disabled = false;
+      }
+
+      progressBar.style.width = `${((index + 1) / questions.length) * 100}%`;
+      active.scrollIntoView({behavior:"smooth", block:"center"});
+    }
+
+    function calculateResult(){
+      let safeCount = 0;
+      const positives = [];
+      const improvements = [];
+
+      questions.forEach(q => {
+        const response = answers[q.id];
+        const safe = q.yesSafe ? response === "Sim" : response === "Não";
+
+        if(safe){
+          safeCount++;
+          positives.push(q.good);
+        }else{
+          improvements.push(q.improve);
+        }
+      });
+
+      const score = Math.round((safeCount / questions.length) * 100);
+      let level, title, text;
+
+      if(score >= 80){
+        level = "Boa proteção";
+        title = "Você mantém bons hábitos digitais.";
+        text = "Seu resultado indica uma rotina de proteção consistente. Continue atento, porque segurança digital depende de hábitos permanentes.";
+      }else if(score >= 50){
+        level = "Proteção moderada";
+        title = "Você já se protege, mas ainda há pontos importantes para melhorar.";
+        text = "Algumas mudanças simples podem reduzir significativamente sua exposição a golpes, vazamentos e decisões inseguras baseadas em IA.";
+      }else{
+        level = "Maior exposição";
+        title = "Seus hábitos atuais podem aumentar sua exposição a riscos.";
+        text = "Não significa que você sofrerá um golpe, mas indica que vale adotar medidas de proteção desde agora.";
+      }
+
+      return {score, level, title, text, positives, improvements};
+    }
+
+    function showResult(result){
+      form.classList.add("hidden");
+      resultCard.classList.add("active");
+      educationSection.classList.add("active");
+
+      document.getElementById("scoreValue").textContent = `${result.score}%`;
+      document.getElementById("levelChip").textContent = result.level;
+      document.getElementById("resultTitle").textContent = participant.firstName ? `${participant.firstName}, ${result.title.charAt(0).toLowerCase()}${result.title.slice(1)}` : result.title;
+      document.getElementById("resultText").textContent = result.text;
+
+      const ring = document.getElementById("scoreRing");
+      const degrees = result.score * 3.6;
+      ring.style.background = `conic-gradient(var(--lime) ${degrees}deg, #d7dce0 ${degrees}deg)`;
+
+      const recommendations = document.getElementById("recommendations");
+      const positiveCards = result.positives.slice(0,3).map(item => `
+        <div class="recommendation good">
+          <h3>✓ Ponto positivo</h3>
+          <p>${item}</p>
+        </div>
+      `).join("");
+
+      const improvementCards = result.improvements.slice(0,4).map(item => `
+        <div class="recommendation attention">
+          <h3>⚠ Para melhorar</h3>
+          <p>${item}</p>
+        </div>
+      `).join("");
+
+      recommendations.innerHTML = positiveCards + improvementCards;
+      progressBar.style.width = "100%";
+      resultCard.scrollIntoView({behavior:"smooth", block:"start"});
+    }
+
+    async function saveResponse(result){
+      const payload = {
+        submittedAt: new Date().toISOString(),
+        consent: true,
+        score: result.score,
+        level: result.level,
+        participant: participant,
+        answers: answers
+      };
+
+      saveStatus.className = "status show warn";
+      saveStatus.textContent = "Registrando sua participação...";
+
+      if(!APPS_SCRIPT_URL){
+        localStorage.setItem(`protecaoDigital_${Date.now()}`, JSON.stringify(payload));
+        saveStatus.className = "status show warn";
+        saveStatus.textContent =
+          "Resultado calculado. Esta cópia está em modo de demonstração: configure a URL do Google Apps Script para enviar as respostas à planilha.";
+        return;
+      }
+
+      try{
+        await fetch(APPS_SCRIPT_URL, {
+          method:"POST",
+          mode:"no-cors",
+          headers:{"Content-Type":"text/plain;charset=utf-8"},
+          body:JSON.stringify(payload)
+        });
+
+        saveStatus.className = "status show ok";
+        saveStatus.textContent = "Participação registrada. Obrigado por contribuir com a pesquisa!";
+      }catch(error){
+        console.error(error);
+        saveStatus.className = "status show error";
+        saveStatus.textContent =
+          "Seu resultado foi calculado, mas não foi possível registrar a resposta. Verifique sua conexão e tente novamente.";
+      }
+    }
+
+    async function finishQuiz(){
+      const missing = questions.find(q => !answers[q.id]);
+      if(missing) return;
+
+      const result = calculateResult();
+      showResult(result);
+      await saveResponse(result);
+    }
+
+    function resetQuiz(){
+      Object.keys(answers).forEach(key => delete answers[key]);
+      currentQuestion = 0;
+      form.reset();
+      resultCard.classList.remove("active");
+      educationSection.classList.remove("active");
+      topicIntroCard.classList.remove("active");
+      participant = {};
+      document.getElementById("firstName").value = "";
+      document.getElementById("ageGroup").value = "";
+      document.getElementById("trainingTime").value = "";
+      document.getElementById("aiUse").value = "";
+      consentCheck.checked = false;
+      intro.classList.remove("hidden");
+      hero.classList.remove("hidden");
+      progressBar.style.width = "0%";
+      updateStartButton();
+      form.classList.add("hidden");
+      saveStatus.className = "status";
+      container.querySelectorAll(".next").forEach(btn => btn.disabled = true);
+    }
+
+    function profileIsValid(){
+      return Boolean(document.getElementById("ageGroup").value && document.getElementById("trainingTime").value && document.getElementById("aiUse").value && consentCheck.checked);
+    }
+    function updateStartButton(){ startButton.disabled = !profileIsValid(); }
+    ["ageGroup","trainingTime","aiUse"].forEach(id => document.getElementById(id).addEventListener("change", updateStartButton));
+    consentCheck.addEventListener("change", updateStartButton);
+
+    startButton.addEventListener("click", () => {
+      if(!profileIsValid()) return;
+      participant = {
+        firstName: document.getElementById("firstName").value.trim(),
+        ageGroup: document.getElementById("ageGroup").value,
+        trainingTime: document.getElementById("trainingTime").value,
+        aiUse: document.getElementById("aiUse").value
+      };
+      intro.classList.add("hidden");
+      hero.classList.add("hidden");
+      showTopicIntro("security", 0);
+    });
+
+    document.getElementById("restartButton").addEventListener("click", resetQuiz);
+
+    renderQuestions();
+  </script>
+</body>
+</html>
